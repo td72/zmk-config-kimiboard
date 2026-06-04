@@ -17,26 +17,26 @@
 
         default_layer {
             bindings = <
-                // pos0(リセット隣)  pos1=戻る  pos2=スクロールトグル  pos3=左クリック
-                &bt BT_NXT  &mkp MB4  &tog 3  &mkp LCLK
+                // pos0(リセット隣)  pos1=戻る  pos2=左クリック  pos3=スクロールトグル
+                &bt BT_NXT  &mkp MB4  &mkp LCLK  &tog 3
             >;
 	};
 
     mouse_key_layer {
             bindings = <
-                &trans  &mkp MB4  &tog 3  &mkp LCLK
+                &trans  &mkp MB4  &mkp LCLK  &tog 3
         >;
     };
 
     auto_mouse_layer {
             // トラックボール移動中。常に同じ割り当てにする
             bindings = <
-                &trans  &mkp MB4  &tog 3  &mkp LCLK
+                &trans  &mkp MB4  &mkp LCLK  &tog 3
         >;
     };
 
     scroll_layer {
-            // スクロール中。pos3(key3)でスクロール解除(レイヤー3 OFF)
+            // スクロール中。pos3(key3)で解除(トグルOFF)、key2は進む
             bindings = <
                 &trans  &mkp MB4  &mkp MB5  &tog 3
         >;

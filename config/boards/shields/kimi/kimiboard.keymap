@@ -12,36 +12,54 @@
 
 
 / {
+    behaviors {
+        // 1キー: タップ=戻る(MB4) / ホールド=Ctrl矢印レイヤー(4)
+        ht_back: hold_tap_back {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&mkp>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-                // pos0(リセット隣)  pos1=戻る  pos2=スクロールトグル  pos3=左クリック
-                &bt BT_NXT  &mkp MB4  &tog 3  &mkp LCLK
+                // pos0(リセット隣)  pos1=戻る(ホールドでCtrl矢印)  pos2=スクロールトグル  pos3=左クリック
+                &bt BT_NXT  &ht_back 4 MB4  &tog 3  &mkp LCLK
             >;
 	};
 
     mouse_key_layer {
             bindings = <
-                &trans  &mkp MB4  &tog 3  &mkp LCLK
+                &trans  &ht_back 4 MB4  &tog 3  &mkp LCLK
         >;
     };
 
     auto_mouse_layer {
             // トラックボール移動中。常に同じ割り当てにする
             bindings = <
-                &trans  &mkp MB4  &tog 3  &mkp LCLK
+                &trans  &ht_back 4 MB4  &tog 3  &mkp LCLK
         >;
     };
 
     scroll_layer {
             // スクロール中。pos3(key3)でスクロール解除(レイヤー3 OFF)
             bindings = <
-                &trans  &mkp MB4  &mkp MB5  &tog 3
+                &trans  &ht_back 4 MB4  &mkp MB5  &tog 3
         >;
     };
-    
+
+    ctrl_arrow_layer {
+            // 1キーをホールド中。pos2=Ctrl+← / pos3=Ctrl+→
+            bindings = <
+                &trans  &trans  &kp LC(LEFT)  &kp LC(RIGHT)
+        >;
+    };
+
 
 
     };
@@ -50,7 +68,7 @@
         compatible = "zmk,combos";
 
         // pos1 + pos2 = (□ - ■ ■ □)
-            // 進む
+            // 進む（同時押し。押しながらはCtrl+←）
 
         combo_forward {
             bindings = <&mkp MB5>;
